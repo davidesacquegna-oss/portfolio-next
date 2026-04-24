@@ -15,10 +15,12 @@ const bgMap: { [key: string]: string } = {
   default: "bg-zinc-900 border-white/10"
 }; // <--- AGGIUNTA QUESTA
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
+
 async function getHomepageData() {
   // Questo URL chiede TUTTO quello che c'è in SiteContent, 
   // a prescindere da come si chiamano i componenti.
-  const url = "http://127.0.0.1:1337/api/homepage?populate[SiteContent][populate]=*";
+  const url = STRAPI_URL + "/api/homepage?populate[SiteContent][populate]=*";
   
   try {
     const res = await fetch(url, { cache: "no-store" });
@@ -32,7 +34,7 @@ async function getHomepageData() {
 export default async function Page() {
   const response = await getHomepageData();
 
-  const BASE_URL = "http://127.0.0.1:1337";
+  const BASE_URL = STRAPI_URL;
 
   const siteContent = response?.data?.SiteContent;
 console.log("CONTENUTO RICEVUTO:", JSON.stringify(siteContent, null, 2));
