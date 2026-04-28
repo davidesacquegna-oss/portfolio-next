@@ -21,8 +21,8 @@ const Footer = ({ logo }: { logo: string | null }) => {
             <Link href="/about" className="text-gray-700 hover:text-blue-600 transition">
               Chi Siamo
             </Link>
-            <Link href="/servizi" className="text-gray-700 hover:text-blue-600 transition">
-              Servizi
+            <Link href="/projects" className="text-gray-700 hover:text-blue-600 transition">
+              Progetti
             </Link>
             <Link href="/contatti" className="text-gray-700 hover:text-blue-600 transition">
               Contatti
