@@ -1,18 +1,15 @@
 import Link from 'next/link';
 
-const Navbar = ({data}:{data:string}) => {
-    console.log("data:",data);
+const Navbar = ({ data, logo }: { data: string; logo: string | null }) => {
+  console.log("data:", data);
+
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-xl font-bold text-blue-600">
-              MioBrand
-            </Link>
-          </div>
-
+          {logo && (
+            <img className="h-16" src={`http://localhost:1337${logo}`} alt="Logo" />
+          )}
           {/* Links di navigazione */}
           <div className="hidden md:flex space-x-8">
             <Link href="/" className="text-gray-700 hover:text-blue-600 transition">
