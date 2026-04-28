@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const Footer = () => {
+const Footer = ({ logo }: { logo: string | null }) => {
 
   return (
     <nav className="bg-white border-b border-gray-200">
@@ -8,8 +8,8 @@ const Footer = () => {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-xl font-bold text-blue-600">
-              MioBrand
+            <Link href="/" className="h-full flex items-center">
+              <img src={`http://localhost:1337${logo}`} className="h-16 w-auto" alt="" />
             </Link>
           </div>
 
