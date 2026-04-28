@@ -52,11 +52,11 @@ console.log("CONTENUTO RICEVUTO:", JSON.stringify(siteContent, null, 2));
 
   return (
     <main className="bg-black min-h-screen text-white">
-      {siteContent.map((section: any) => {
+      {siteContent.map((section: any, i:number) => {
         switch (section.__component) {
           case "shared.hero":
             return (
-              <section key={section.id} className="flex items-center justify-center p-10 lg:p-24 bg-black text-white">
+              <section key={i} className="flex items-center justify-center p-10 lg:p-24 bg-black text-white">
                 <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="z-10">
                     <span className="text-blue-500 font-mono tracking-tighter text-sm uppercase">{section.Photo_Tag}</span>
