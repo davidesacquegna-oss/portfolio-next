@@ -8,61 +8,73 @@ async function getAboutData() {
   try {
     const res = await fetch(url, { cache: "no-store" });
     const json = await res.json();
-    return json;
+    return json.data; // Restituiamo i dati della pagina
   } catch (error) {
+    console.error("Errore fetch About:", error);
     return null;
   }
 }
 
 export default async function AboutPage() {
-  const response = await getAboutData();
-
-  const BASE_URL = STRAPI_URL;
+  const data = await getAboutData();
   
-  // Destrutturazione tipizzata degli attributi
-  const title = response?.data?.title;
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
-  const blocks = response?.data?.blocks;
+  if (!data) return <div className="p-10 text-white">Caricamento in corso o errore...</div>;
 
+  // 1. Prendiamo il titolo dinamico da Strapi
+  const pageTitle = data.title; 
+  
+  const blocks = data.blocks || [];
+
+  // 2. Estraiamo i blocchi necessari
+  const mediaBlock = blocks.find((b: any) => b.__component === "shared.media");
+  const textBlock = blocks.find((b: any) => b.__component === "shared.rich-text");
 
   return (
-    <main className="bg-black min-h-screen text-white">
-      <h1 className="text-3xl font-bold mb-4 p-6">{title}</h1>      
-      
-      {blocks?.map((section: any) => {
-        switch (section.__component) {
-          case "shared.media":
-            return (
-                <section key={`${section.__component}-${section.id}`} className="flex items-center justify-center gap-8 p-10 bg-black text-white">
-                  <div className="mt-8 border-l-4 border-blue-600 pl-6">
-                      <h2 className="text-xl md:text-2xl text-gray-200 italic leading-relaxed">{section.Titolo}</h2>
-                  </div>
-                  <div className="relative w-full max-w-[500px] aspect-square lg:aspect-auto overflow-hidden rounded-2xl shadow-2xl shadow-blue-500/20">
-                    {section.ImmagineSfondo?.formats.medium ? (
-                      <img src={`${BASE_URL}${section.ImmagineSfondo?.formats?.medium?.url}`} className="w-full h-full object-cover object-top" alt="Hero" />
-                    ) : (
-                      <div className="w-full h-full bg-zinc-900 flex items-center justify-center text-gray-500">Nessuna immagine</div>
-                    )}
-                  </div>
-                  
-                </section>
-            );
-            case "shared.rich-text":
-            return (
-              <section key={`${section.__component}-${section.id}`} className="flex items-center justify-center p-10 bg-black text-white">
-                <div className="w-full max-w-3xl">
-                    {section.Bio ? (
-                      <p className="text-gray-300 leading-relaxed">{section.Bio}</p>
-                    ) : (
-                      <div className="text-gray-500">Nessun testo</div>
-                    )}
-                  </div>
-              </section>
-            );
-            
-        }
-      })}
+    <main className="min-h-screen bg-black p-8 lg:p-20 text-white">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* TITOLO DINAMICO DA STRAPI */}
+        <h1 className="text-3xl font-bold mb-12 border-l-4 border-blue-600 pl-4 uppercase tracking-tight">
+          {pageTitle}
+        </h1>
 
+        {/* Layout Split: Immagine a sinistra, Testo a destra */}
+        <div className="flex flex-col md:flex-row gap-12 items-start">
+          
+          {/* Colonna Sinistra: Immagine */}
+          <div className="w-full md:w-1/2">
+            {mediaBlock?.ImmagineSfondo ? (
+              <div className="rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl shadow-blue-500/10">
+                <img 
+                  src={`${STRAPI_URL}${mediaBlock.ImmagineSfondo.url}`} 
+                  alt={pageTitle}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            ) : (
+              <div className="w-full aspect-square bg-zinc-900 rounded-2xl flex items-center justify-center text-zinc-600 italic">
+                Nessun media caricato
+              </div>
+            )}
+          </div>
+
+          {/* Colonna Destra: Testo e Bio */}
+          <div className="w-full md:w-1/2">
+            {/* Titolo del blocco media (se presente) */}
+            {mediaBlock?.Titolo && (
+              <h2 className="text-xl md:text-2xl text-gray-200 italic leading-relaxed mb-6">
+                {mediaBlock.Titolo}
+              </h2>
+            )}
+            
+            {/* Testo della Bio */}
+            <div className="text-zinc-400 text-lg leading-relaxed whitespace-pre-line">
+              {textBlock?.Bio || "Inserisci il testo della biografia su Strapi"}
+            </div>
+          </div>
+
+        </div>
+      </div>
     </main>
   );
 }
