@@ -7,7 +7,8 @@ import Footer from "@/components/layout/footer";
 async function getLogo() {
   const res = await fetch("http://localhost:1337/api/logo?populate=*");
   const json = await res.json();
-  return json.data?.SiteLogo?.url || null; // Restituiamo solo l'URL o null
+  console.log("LOGO JSON:", JSON.stringify(json, null, 2));
+  return json.data?.SiteLogo?.url || null;
 }
 
 const geistSans = Geist({
@@ -39,7 +40,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <Navbar data={'666'} logo={logoUrl} />
         {children}
-        <Footer />
+        <Footer logo={logoUrl} />
         </body>
     </html>
   );
