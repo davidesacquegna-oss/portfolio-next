@@ -26,20 +26,20 @@ export default async function AboutPage() {
 
 
   return (
-    <main className="max-w-4xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-4">{title}</h1>      
+    <main className="bg-black min-h-screen text-white">
+      <h1 className="text-3xl font-bold mb-4 p-6">{title}</h1>      
       
-      {blocks.map((section: any) => {
+      {blocks?.map((section: any) => {
         switch (section.__component) {
           case "shared.media":
             return (
-                <section key={section.id} className="flex items-center justify-center p-10 lg:p-24 bg-black text-white">
+                <section key={`${section.__component}-${section.id}`} className="flex items-center justify-center gap-8 p-10 bg-black text-white">
                   <div className="mt-8 border-l-4 border-blue-600 pl-6">
                       <h2 className="text-xl md:text-2xl text-gray-200 italic leading-relaxed">{section.Titolo}</h2>
                   </div>
-                  <div className="relative w-full aspect-square lg:aspect-auto lg:h-[600px] overflow-hidden rounded-2xl shadow-2xl shadow-blue-500/20">
+                  <div className="relative w-full max-w-[500px] aspect-square lg:aspect-auto overflow-hidden rounded-2xl shadow-2xl shadow-blue-500/20">
                     {section.ImmagineSfondo?.formats.medium ? (
-                      <img src={`${BASE_URL}${section.ImmagineSfondo?.formats?.medium?.url}`} className="w-full h-full object-cover" alt="Hero" />
+                      <img src={`${BASE_URL}${section.ImmagineSfondo?.formats?.medium?.url}`} className="w-full h-full object-cover object-top" alt="Hero" />
                     ) : (
                       <div className="w-full h-full bg-zinc-900 flex items-center justify-center text-gray-500">Nessuna immagine</div>
                     )}
@@ -47,6 +47,19 @@ export default async function AboutPage() {
                   
                 </section>
             );
+            case "shared.rich-text":
+            return (
+              <section key={`${section.__component}-${section.id}`} className="flex items-center justify-center p-10 bg-black text-white">
+                <div className="w-full max-w-3xl">
+                    {section.Bio ? (
+                      <p className="text-gray-300 leading-relaxed">{section.Bio}</p>
+                    ) : (
+                      <div className="text-gray-500">Nessun testo</div>
+                    )}
+                  </div>
+              </section>
+            );
+            
         }
       })}
 
