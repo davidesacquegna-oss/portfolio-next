@@ -40,12 +40,12 @@ export default async function Page({
 
               {/* Contenuto Testuale (Card Body) */}
               <div className="w-full md:w-1/3">
-                <h1 className="text-xxl font-bold mb-2 group-hover:text-blue-400 transition-colors">
+                <h1 className="text-5xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
                   {project.title}
                 </h1>
                 
                 {/* Short Description: limitata a 3 righe per mantenere le card allineate */}
-                <p className="text-zinc-400 text-sm line-clamp-3 leading-relaxed">
+                <p className="text-zinc-400 text-md leading-relaxed">
                   {project.Description || "Esplora i dettagli di questo progetto."}
                 </p>
                 
