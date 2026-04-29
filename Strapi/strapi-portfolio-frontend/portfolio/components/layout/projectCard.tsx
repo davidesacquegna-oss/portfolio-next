@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import type { Project } from '@/types/projects';
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
               
-const Project = ({ project }: { project: any }) => {
+const ProjectCard = ({ project }: { project: Project }) => {
 
 
   return (<Link
@@ -47,4 +48,4 @@ const Project = ({ project }: { project: any }) => {
   )
   };
 
-export default Project;
+export default ProjectCard;

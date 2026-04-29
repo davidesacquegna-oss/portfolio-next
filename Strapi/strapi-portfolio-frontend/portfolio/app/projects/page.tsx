@@ -1,6 +1,6 @@
 // app/projects/page.tsx
 import Link from "next/link";
-import Project from "@/components/layout/projectCard";
+import ProjectCard from "@/components/layout/projectCard";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
 
@@ -23,7 +23,7 @@ export default async function ProjectsPage() {
         {/* Griglia: 1 colonna su mobile, 2 su tablet, 3 su desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project: any) => (
-            <Project key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </div>

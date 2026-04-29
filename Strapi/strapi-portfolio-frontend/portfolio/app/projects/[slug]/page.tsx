@@ -18,14 +18,14 @@ export default async function Page({
   const { slug } = await params
   const project = await getProject(slug)
   return (<main className="min-h-screen bg-black p-8 lg:p-20 text-white">
-   <div>
+   <div  className="flex flex-col md:flex-row gap-12 items-start">
               {/* Contenitore Immagine (Card Top) */}
-              <div className="relative aspect-video overflow-hidden bg-zinc-800">
+              <div className="relative md:w-2/3 aspect-video overflow-hidden bg-zinc-800">
                 {project.Screenshot && project.Screenshot[0] ? (
                   <img 
                     src={`${STRAPI_URL}${project.Screenshot[0].formats?.large?.url ?? project.Screenshot[0].url}`}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full text-zinc-600">No Image</div>
@@ -39,10 +39,10 @@ export default async function Page({
               </div>
 
               {/* Contenuto Testuale (Card Body) */}
-              <div className="p-6">
-                <h2 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
+              <div className="w-full md:w-1/3">
+                <h1 className="text-xxl font-bold mb-2 group-hover:text-blue-400 transition-colors">
                   {project.title}
-                </h2>
+                </h1>
                 
                 {/* Short Description: limitata a 3 righe per mantenere le card allineate */}
                 <p className="text-zinc-400 text-sm line-clamp-3 leading-relaxed">
