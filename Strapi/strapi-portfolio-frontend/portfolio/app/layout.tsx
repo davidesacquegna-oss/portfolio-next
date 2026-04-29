@@ -7,9 +7,10 @@ import Footer from "@/components/layout/footer";
 async function getLogo() {
   const res = await fetch("http://localhost:1337/api/logo?populate=*");
   const json = await res.json();
-  console.log("LOGO JSON:", JSON.stringify(json, null, 2));
+  console.log("SERVER LOG - Strapi URL:", process.env.NEXT_PUBLIC_STRAPI_URL);
   return json.data?.SiteLogo?.url || null;
 }
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

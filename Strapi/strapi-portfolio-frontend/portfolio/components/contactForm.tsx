@@ -1,31 +1,70 @@
-// components/ContactForm.tsx
+// components/contactForm.tsx
 'use client';
 
 export default function ContactForm() {
   async function handleSubmit(formData: FormData) {
-    // Trasformiamo i dati per Strapi
-    const data = {
+    const payload = {
       data: {
-        nome: formData.get('nome'),
+        nome_cognome: formData.get('nome_cognome'),
         email: formData.get('email'),
         messaggio: formData.get('messaggio'),
       }
     };
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/leads`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337"}/api/leads`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-    if (response.ok) {
-      alert("Messaggio salvato su Strapi!");
+      if (res.ok) alert("Messaggio inviato con successo!");
+    } catch (error) {
+      console.error("Errore nell'invio", error);
     }
   }
-
+  console.log("Variabile URL:", process.env.NEXT_PUBLIC_STRAPI_URL);
   return (
-    <form action={handleSubmit}> 
-      {/* ... i tuoi campi ... */}
-    </form>
+    <form action={handleSubmit} className="flex flex-col gap-4 max-w-md">
+  <div>
+    <label htmlFor="nome_cognome" className="block mb-1">Nome e Cognome</label>
+    <input 
+      type="text" 
+      id="nome_cognome"
+      name="nome_cognome" // <--- Importante: deve corrispondere a quello che cerchi nel handleSubmit
+      required 
+      className="w-full border p-2 rounded text-black"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="email" className="block mb-1">Email</label>
+    <input 
+      type="email" 
+      id="email"
+      name="email" 
+      required 
+      className="w-full border p-2 rounded text-black"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="messaggio" className="block mb-1">Messaggio</label>
+    <textarea 
+      id="messaggio"
+      name="messaggio" 
+      required 
+      rows={4}
+      className="w-full border p-2 rounded text-black"
+    />
+  </div>
+
+  <button 
+    type="submit" 
+    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+  >
+    Invia Messaggio
+  </button>
+</form>
   );
 }
