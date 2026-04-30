@@ -4,13 +4,23 @@ import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 
+// Funzione per il Logo
 async function getLogo() {
   const res = await fetch("http://localhost:1337/api/logo?populate=*");
   const json = await res.json();
-  console.log("SERVER LOG - Strapi URL:", process.env.NEXT_PUBLIC_STRAPI_URL);
   return json.data?.SiteLogo?.url || null;
 }
 
+// NUOVA FUNZIONE: Funzione per la Navigazione
+async function getNavigation() {
+  const res = await fetch("http://localhost:1337/api/navigation?populate=*");
+  if (!res.ok) return null;
+  const json = await res.json();
+
+  
+  // Restituiamo direttamente l'oggetto che contiene menuItem
+  return json.data || null; 
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,17 +42,27 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Eseguiamo entrambi i fetch
   const logoUrl = await getLogo();
+  const navData = await getNavigation();
+    // LOGGA QUI per vedere la struttura esatta nel terminale di VS Code
+  console.log("NAV DATA DEBUG:", JSON.stringify(navData, null, 2));
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar data={'666'} logo={logoUrl} />
-        {children}
+        {/* Passiamo navData invece di '666' */}
+        <Navbar data={navData} logo={logoUrl} />
+        
+        <main className="flex-grow">
+          {children}
+        </main>
+
         <Footer logo={logoUrl} />
-        </body>
+      </body>
     </html>
   );
 }
