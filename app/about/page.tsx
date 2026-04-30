@@ -39,7 +39,7 @@ export default async function AboutPage() {
         </h1>
 
         {/* Layout Split: Immagine a sinistra, Testo a destra */}
-        <div className="flex flex-col md:flex-row gap-12 items-start">
+        <div className="flex flex-col md:flex-row gap-12 items-center">
           
           {/* Colonna Sinistra: Immagine */}
           <div className="w-full md:w-1/2">
@@ -70,6 +70,24 @@ export default async function AboutPage() {
             {/* Testo della Bio */}
             <div className="text-zinc-400 text-lg leading-relaxed whitespace-pre-line">
               {textBlock?.Bio || "Inserisci il testo della biografia su Strapi"}
+            </div>
+            <div className="w-full">
+              {mediaBlock?.logo_animation ? (
+                <div className="rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl shadow-blue-500/10">
+                  <video 
+                    className="w-full h-auto object-cover" 
+                    controls
+                    preload="metadata"
+                  >
+                    <source src={`${STRAPI_URL}${mediaBlock.logo_animation.url}`} type="video/mp4" />
+                    Il tuo browser non supporta il tag video.                    
+                  </video>
+                </div>
+              ) : (
+                <div className="w-full aspect-square bg-zinc-900 rounded-2xl flex items-center justify-center text-zinc-600 italic">
+                  Nessun media caricato
+                </div>
+              )}
             </div>
           </div>
 

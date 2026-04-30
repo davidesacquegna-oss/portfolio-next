@@ -32,8 +32,9 @@ export default function ContactForm() {
       type="text" 
       id="nome_cognome"
       name="nome_cognome" // <--- Importante: deve corrispondere a quello che cerchi nel handleSubmit
+      placeholder="Mario Rossi"
       required 
-      className="w-full border p-2 rounded text-black"
+      className="w-full border border-gray-400 p-2 rounded text-black placeholder:text-gray-400"
     />
   </div>
 
@@ -43,8 +44,9 @@ export default function ContactForm() {
       type="email" 
       id="email"
       name="email" 
+      placeholder="mario@esempio.it"
       required 
-      className="w-full border p-2 rounded text-black"
+      className="w-full border border-gray-400 p-2 rounded text-black placeholder:text-gray-400"
     />
   </div>
 
@@ -53,15 +55,16 @@ export default function ContactForm() {
     <textarea 
       id="messaggio"
       name="messaggio" 
+      placeholder="Scrivi qui il tuo messaggio..."
       required 
       rows={4}
-      className="w-full border p-2 rounded text-black"
+      className="w-full border border-gray-400 p-2 rounded text-black placeholder:text-gray-400"
     />
   </div>
 
   <button 
     type="submit" 
-    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 active:bg-blue-800 active:scale-95 transition"
   >
     Invia Messaggio
   </button>
