@@ -25,7 +25,7 @@ export default function ContactForm() {
   }
   console.log("Variabile URL:", process.env.NEXT_PUBLIC_STRAPI_URL);
   return (
-    <form action={handleSubmit} className="flex flex-col gap-4 max-w-md">
+    <form action={handleSubmit} className="flex flex-col gap-4">
   <div>
     <label htmlFor="nome_cognome" className="block mb-1">Nome e Cognome</label>
     <input 

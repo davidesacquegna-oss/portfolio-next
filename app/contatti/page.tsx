@@ -10,13 +10,14 @@ export default async function ContattiPage() {
   const logoUrl = await getLogo();
 
   return (
-    <main className="min-h-screen bg-black p-8 lg:p-20 text-white">
+    <div className="min-h-screen bg-black p-8 lg:p-20 text-white">
+      <div className="max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Contattaci</h1>
       <p className="text-gray-600 mb-8">
         Hai domande o vuoi collaborare? Compila il modulo qui sotto e ti risponderemo al più presto.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 w-full md:grid-cols-3 gap-12 mx-auto">
         {/* Sezione Form */}
         <section className="md:col-span-2">
           <ContactForm />
@@ -37,6 +38,7 @@ export default async function ContattiPage() {
           )}
         </section>
       </div>
-    </main>
+      </div>
+    </div>
   );
 }
