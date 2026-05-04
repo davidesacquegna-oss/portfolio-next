@@ -1,6 +1,14 @@
 import ContactForm from "@/components/contactForm";
 
-export default function ContattiPage() {
+async function getLogo() {
+  const res = await fetch("http://localhost:1337/api/logo?populate=*");
+  const json = await res.json();
+  return json.data?.SiteLogo?.url || null;
+}
+
+export default async function ContattiPage() {
+  const logoUrl = await getLogo();
+
   return (
     <main className="min-h-screen bg-black p-8 lg:p-20 text-white">
       <h1 className="text-3xl font-bold mb-6">Contattaci</h1>
@@ -22,6 +30,11 @@ export default function ContattiPage() {
             <li>📧 info@webvisionario.it</li>
             <li>📞 +39 051 123456</li>
           </ul>
+          {logoUrl && (
+            <div className="mt-6 flex justify-center">
+              <img src={`http://localhost:1337${logoUrl}`} alt="Logo" className="w-full max-w-xs h-auto" />
+            </div>
+          )}
         </section>
       </div>
     </main>
