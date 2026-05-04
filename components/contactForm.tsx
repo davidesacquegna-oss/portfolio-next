@@ -34,7 +34,7 @@ export default function ContactForm() {
       name="nome_cognome" // <--- Importante: deve corrispondere a quello che cerchi nel handleSubmit
       placeholder="Mario Rossi"
       required 
-      className="w-full border border-gray-400 p-2 rounded text-black placeholder:text-gray-400"
+      className="w-full border border-gray-600 bg-zinc-900 p-2 rounded text-white placeholder:text-gray-500"
     />
   </div>
 
@@ -46,7 +46,7 @@ export default function ContactForm() {
       name="email" 
       placeholder="mario@esempio.it"
       required 
-      className="w-full border border-gray-400 p-2 rounded text-black placeholder:text-gray-400"
+      className="w-full border border-gray-600 bg-zinc-900 p-2 rounded text-white placeholder:text-gray-500"
     />
   </div>
 
@@ -58,7 +58,7 @@ export default function ContactForm() {
       placeholder="Scrivi qui il tuo messaggio..."
       required 
       rows={4}
-      className="w-full border border-gray-400 p-2 rounded text-black placeholder:text-gray-400"
+      className="w-full border border-gray-600 bg-zinc-900 p-2 rounded text-white placeholder:text-gray-500"
     />
   </div>
 

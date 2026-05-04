@@ -19,7 +19,7 @@ export default function ContattiPage() {
           <h2 className="font-semibold mb-4 text-gray-900">I nostri recapiti</h2>
           <ul className="space-y-4 text-gray-700">
             <li>📍 Bologna, Italia</li>
-            <li>📧 info@tuodominio.it</li>
+            <li>📧 info@webvisionario.it</li>
             <li>📞 +39 051 123456</li>
           </ul>
         </section>
